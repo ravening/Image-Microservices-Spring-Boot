@@ -81,3 +81,11 @@ http://localhost:8762/gallery/1
 ```
 
 Authorization should be "Bearer Token" and paste the above copied token in the "Token" field
+
+## Built With
+
+* [Maven](https://maven.apache.org/) - Dependency Management
+
+
+## Authors
+* **Rakesh Venkatesh** - [rakgenius](https://github.com/rakgenius)
