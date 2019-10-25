@@ -3,6 +3,7 @@ package com.rakeshv.galleryservice.controllers;
 import java.util.List;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.rakeshv.galleryservice.feign.GalleryServiceProxy;
 import com.rakeshv.galleryservice.models.Gallery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class HomeController {
     private RestTemplate restTemplate;
     @Autowired
     private Environment environment;
+    @Autowired
+    private GalleryServiceProxy galleryServiceProxy;
 
     @GetMapping("/")
     public String home() {
@@ -60,5 +63,13 @@ public class HomeController {
     @RequestMapping("/admin")
 	public String homeAdmin() {
 		return "This is the admin area of Gallery service running at port: " + environment.getProperty("local.server.port");
-	}
+    }
+    
+    @GetMapping("/feign/{id}")
+    public Gallery getFeignGallery (@PathVariable final Long id) {
+        Gallery gallery = galleryServiceProxy.getFeignGallery(id);
+        log.info("response from feign client is {}", gallery);
+
+        return gallery;
+    }
 }
